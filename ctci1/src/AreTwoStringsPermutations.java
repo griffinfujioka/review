@@ -29,7 +29,7 @@ public class AreTwoStringsPermutations {
             if(firstStringMap.get(c) != 0)
                 return false;
         }
-        
+
         return true;
     }
 }
