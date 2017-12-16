@@ -8,12 +8,13 @@ public class RotateMatrix {
             int start = layer;
             int end = n - layer - 1;
 
-            for(int i = start; i < end; i++) {
-                int temp = matrix[layer][start];
-                matrix[layer][start] = matrix[end][layer];
-                matrix[end][layer] = matrix[end][end];
-                matrix[end][end] = matrix[layer][end];
-                matrix[layer][end] = temp;
+            for(int i = start; i < end; ++i) {
+                int offset = i - start;
+                int temp = matrix[start][i];
+                matrix[start][i] = matrix[end-offset][start];
+                matrix[end - offset][start] = matrix[end][end - offset];
+                matrix[end][end - offset] = matrix[i][end];
+                matrix[i][end] = temp;
             }
         }
 
