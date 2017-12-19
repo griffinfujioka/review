@@ -1,3 +1,5 @@
+package linkedlist;
+
 /**
  * Created by griffin on 12/16/17.
  */
@@ -9,6 +11,9 @@ public class Node {
 
     public Node(int data) {
         this.data = data;
+    }
+
+    public Node() {
     }
 
     public int getData() {

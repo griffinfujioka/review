@@ -1,3 +1,4 @@
+import linkedlist.Node;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,6 +37,19 @@ public class RemoveDuplicatesTest {
         Node node = new Node(anyData);
         Node duplicateNode = new Node(anyData);
         node.setNext(duplicateNode);
+        removeDuplicates.removeDuplicates(node);
+        assertEquals(node.getData(), anyData);
+        assertNull(node.getNext());
+    }
+
+    @Test
+    public void shouldReturnSingleNodeWhenInputIsAThreeNodeListContainingMultipleDuplicates() {
+        final int anyData = random.nextInt();
+        Node node = new Node(anyData);
+        Node duplicateNode = new Node(anyData);
+        node.setNext(duplicateNode);
+        Node anotherDuplicateNode = new Node(anyData);
+        node.setNext(anotherDuplicateNode);
         removeDuplicates.removeDuplicates(node);
         assertEquals(node.getData(), anyData);
         assertNull(node.getNext());
