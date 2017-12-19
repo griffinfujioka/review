@@ -1,3 +1,6 @@
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by griffin on 12/17/17.
  * <p>
@@ -18,6 +21,11 @@
 public class FindMissingNumber {
 
 
+    /**
+     * Use Gauss' formula
+     * @param nums
+     * @return
+     */
     public int findMissingNumber(int[] nums) {
         if (nums == null || (nums.length == 1 && nums[0] == 0)) return -1;
 
@@ -28,5 +36,19 @@ public class FindMissingNumber {
             actualSum += num;
 
         return expectedSum - actualSum;
+    }
+
+    public int findMissingNumberBruteForce(int[] nums) {
+        Set<Integer> numberSet = new HashSet<>();
+
+        for(int num : nums)
+            numberSet.add(num);
+
+        for(int i = 0; i < nums.length; i++) {
+            if(!numberSet.contains(i))
+                return i;
+        }
+
+        return -1;
     }
 }
