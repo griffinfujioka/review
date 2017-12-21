@@ -40,7 +40,6 @@ public class GriffSinglyLinkedListTest {
         int anyOtherData = random.nextInt();
         griffSinglyLinkedList.add(anyData);
         griffSinglyLinkedList.add(anyOtherData);
-        assertNotNull(griffSinglyLinkedList);
         assertNotNull(griffSinglyLinkedList.getFirst());
         assertEquals(griffSinglyLinkedList.getFirst().getData(), anyData);
         assertNotNull(griffSinglyLinkedList.getFirst().getNext());
@@ -58,6 +57,26 @@ public class GriffSinglyLinkedListTest {
         int anyData = random.nextInt();
         griffSinglyLinkedList.add(anyData);
         assertEquals(griffSinglyLinkedList.getFirst(), griffSinglyLinkedList.get(0));
+    }
+
+    @Test
+    public void shouldReturnTailForGetFirstIndexOfListSizeTwo() throws NoSuchNodeException {
+        int anyData = random.nextInt();
+        int anyOtherData = random.nextInt();
+        griffSinglyLinkedList.add(anyData);
+        griffSinglyLinkedList.add(anyOtherData);
+        assertNotNull(griffSinglyLinkedList.get(1));
+        assertEquals(griffSinglyLinkedList.get(1).getData(), anyOtherData);
+    }
+
+    @Test
+    public void shouldReturnOriginalListWhenRemovingDuplicatesSizeIsOne() {
+        final int anyData = random.nextInt();
+        griffSinglyLinkedList.add(anyData);
+        griffSinglyLinkedList.removeDuplicates();
+        assertNotNull(griffSinglyLinkedList.getFirst());
+        assertEquals(griffSinglyLinkedList.getFirst().getData(), anyData);
+        assertNull(griffSinglyLinkedList.getFirst().getNext());
     }
 
 }

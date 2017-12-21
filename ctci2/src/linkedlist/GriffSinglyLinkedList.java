@@ -6,6 +6,7 @@ public class GriffSinglyLinkedList {
 
     private Node head;
 
+
     public void add(int data) {
         if(this.head == null)
             this.head = new Node(data);
@@ -35,5 +36,9 @@ public class GriffSinglyLinkedList {
 
     public Node getFirst() {
         return head;
+    }
+
+    public void removeDuplicates() {
+
     }
 }
