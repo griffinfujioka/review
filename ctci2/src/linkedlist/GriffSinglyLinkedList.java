@@ -2,7 +2,7 @@ package linkedlist;
 
 import exception.NoSuchNodeException;
 
-public class GriffSinglyLinkedList {
+public class GriffSinglyLinkedList implements GriffList {
 
     private Node head;
 
@@ -40,5 +40,22 @@ public class GriffSinglyLinkedList {
 
     public void removeDuplicates() {
 
+    }
+
+    public boolean delete(Node node) {
+        if(node == null)
+            return false;
+
+        if(this.head == node) {
+            this.head = null;
+            return true;
+        } else if (node.getNext() != null) {
+            Node nextNode = node.getNext();
+            node.setData(nextNode.getData());
+            node.setNext(nextNode.getNext());
+            return true;
+        }
+
+        return false;
     }
 }
