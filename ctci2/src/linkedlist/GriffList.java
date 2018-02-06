@@ -17,7 +17,7 @@ public interface GriffList {
     void add(int data);
 
     /**
-     * Return the node at the specified position in this list.
+     * Return the node at the specified position in the list.
      *
      * @param index
      * @return
@@ -31,4 +31,11 @@ public interface GriffList {
      * @return
      */
     boolean delete(Node node);
+
+    /**
+     * Partition the list such that all elements less than x are positioned to the left of x,
+     * and all elements greater than x are positioned to the right of x.
+     * @param x
+     */
+    void partition(int x);
 }

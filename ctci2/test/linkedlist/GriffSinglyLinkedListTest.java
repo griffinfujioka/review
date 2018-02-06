@@ -108,4 +108,105 @@ public class GriffSinglyLinkedListTest {
         assertTrue(griffSinglyLinkedList.delete(secondNode));
     }
 
+    @Test
+    public void shouldPartitionListOfSizeOneByReturningTheOriginalList() {
+        int anyRandomNumber = random.nextInt();
+        griffSinglyLinkedList.add(anyRandomNumber);
+        griffSinglyLinkedList.partition(anyRandomNumber);
+        assertNotNull(griffSinglyLinkedList.getFirst());
+        assertEquals(griffSinglyLinkedList.getFirst().getData(), anyRandomNumber);
+    }
+
+
+    @Test
+    public void shouldPartitionListAroundXWhenMultipleInstancesOfXArePresent() {
+        int anyRandomValueOfX = Math.abs(random.nextInt() + 1);
+        int anyRandomValueLessThanX = anyRandomValueOfX - 1;
+        int anyRandomValueGreaterThanX = anyRandomValueOfX + 1;
+
+        assertTrue(anyRandomValueLessThanX < anyRandomValueOfX);
+        assertTrue(anyRandomValueGreaterThanX > anyRandomValueOfX);
+
+        griffSinglyLinkedList.add(anyRandomValueOfX);
+        griffSinglyLinkedList.add(anyRandomValueLessThanX);
+        griffSinglyLinkedList.add(anyRandomValueOfX);
+        griffSinglyLinkedList.add(anyRandomValueGreaterThanX);
+
+        griffSinglyLinkedList.partition(anyRandomValueOfX);
+
+        assertNotNull(griffSinglyLinkedList);
+        assertNotNull(griffSinglyLinkedList.getFirst());
+        Node head = griffSinglyLinkedList.getFirst();
+        assertEquals(head.getData(), anyRandomValueLessThanX);
+        assertNotNull(head.getNext());
+        Node firstInstanceOfX = head.getNext();
+        assertEquals(firstInstanceOfX.getData(), anyRandomValueOfX);
+        assertNotNull(firstInstanceOfX.getNext());
+        Node secondInstanceOfX = firstInstanceOfX.getNext();
+        assertEquals(secondInstanceOfX.getData(), anyRandomValueOfX);
+        assertNotNull(secondInstanceOfX.getNext());
+        Node tail = secondInstanceOfX.getNext();
+        assertEquals(tail.getData(), anyRandomValueGreaterThanX);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowIllegalArgumentExceptionWhenPartitionInputListDoesNotContainX() {
+        int anyRandomValueOfX = Math.abs(random.nextInt() + 1);
+        int anyRandomValueLessThanX = random.nextInt(anyRandomValueOfX);
+        int anyRandomValueGreaterThanX = Math.abs(random.nextInt() + anyRandomValueOfX);
+        griffSinglyLinkedList.add(anyRandomValueLessThanX);
+        griffSinglyLinkedList.add(anyRandomValueGreaterThanX);
+        griffSinglyLinkedList.partition(anyRandomValueOfX);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowIllegalArgumentExceptionWhenHeadOfPartitionInputListIsNull() {
+        int anyRandomValueOfX = Math.abs(random.nextInt() + 1);
+        griffSinglyLinkedList.partition(anyRandomValueOfX);
+    }
+
+    @Test
+    public void shouldUseXAsHeadOfOutputListWhenPartitionInputListDoesNotContainValuesLessThanX() {
+        int anyRandomValueOfX = Math.abs(random.nextInt() + 1);
+        int anyRandomValueGreaterThanX = anyRandomValueOfX + 1;
+        griffSinglyLinkedList.add(anyRandomValueOfX);
+        griffSinglyLinkedList.add(anyRandomValueGreaterThanX);
+        griffSinglyLinkedList.partition(anyRandomValueOfX);
+        assertNotNull(griffSinglyLinkedList);
+        assertNotNull(griffSinglyLinkedList.getFirst());
+        assertEquals(griffSinglyLinkedList.getFirst().getData(), anyRandomValueOfX);
+    }
+
+    @Test
+    public void shouldUseXAsTailOfOutputListWhenPartitionInputListDoesNotContainValuesGreaterThanX() {
+        int anyRandomValueOfX = Math.abs(random.nextInt() + 1);
+        int anyRandomValueLessThanX = anyRandomValueOfX - 1;
+        griffSinglyLinkedList.add(anyRandomValueOfX);
+        griffSinglyLinkedList.add(anyRandomValueLessThanX);
+        griffSinglyLinkedList.partition(anyRandomValueOfX);
+        assertNotNull(griffSinglyLinkedList);
+        assertNotNull(griffSinglyLinkedList.getFirst());
+        assertEquals(griffSinglyLinkedList.getFirst().getData(), anyRandomValueLessThanX);
+        assertNotNull(griffSinglyLinkedList.getFirst().getNext());
+        Node instanceOfX = griffSinglyLinkedList.getFirst().getNext();
+        assertEquals(instanceOfX.getData(), anyRandomValueOfX);
+        assertNull(instanceOfX.getNext());
+    }
+
+    @Test
+    public void shouldPartitionListAroundXByMovingNodesContainingValuesGreaterThanXToTheRightOfX() {
+        int anyRandomValueOfX = Math.abs(random.nextInt() + 1);
+        int anyRandomValueGreaterThanX = anyRandomValueOfX + 1;
+        griffSinglyLinkedList.add(anyRandomValueGreaterThanX);
+        griffSinglyLinkedList.add(anyRandomValueOfX);
+        griffSinglyLinkedList.partition(anyRandomValueOfX);
+        assertNotNull(griffSinglyLinkedList);
+        assertNotNull(griffSinglyLinkedList.getFirst());
+        assertEquals(griffSinglyLinkedList.getFirst().getData(), anyRandomValueOfX);
+        assertNotNull(griffSinglyLinkedList.getFirst().getNext());
+        Node nodeContainingValueGreaterThanX = griffSinglyLinkedList.getFirst().getNext();
+        assertEquals(nodeContainingValueGreaterThanX.getData(), anyRandomValueGreaterThanX);
+        assertNull(nodeContainingValueGreaterThanX.getNext());
+    }
+
 }

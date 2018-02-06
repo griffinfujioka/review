@@ -6,7 +6,6 @@ public class GriffSinglyLinkedList implements GriffList {
 
     private Node head;
 
-
     public void add(int data) {
         if(this.head == null)
             this.head = new Node(data);
@@ -57,5 +56,56 @@ public class GriffSinglyLinkedList implements GriffList {
         }
 
         return false;
+    }
+
+    public void partition(int x) {
+        if(this.head == null)
+            throw new IllegalArgumentException("Cannot partition null list");
+
+        Node ltHead = null, ltTail = null, gtHead = null, gtTail = null, eqHead = null, eqTail = null;
+        Node iterator = this.head;
+        while(iterator != null) {
+            if(iterator.getData() > x) {
+                if(gtHead == null) {
+                    gtHead = new Node(iterator.getData());
+                    gtTail = gtHead;
+                } else {
+                    gtTail.setNext(new Node(iterator.getData()));
+                    gtTail = gtTail.getNext();
+                }
+            }
+            else if(iterator.getData() < x) {
+                if(ltHead == null) {
+                    ltHead = new Node(iterator.getData());
+                    ltTail = ltHead;
+                } else {
+                    ltTail.setNext(new Node(iterator.getData()));
+                    ltTail = ltTail.getNext();
+                }
+            }
+            else {
+                if(eqHead == null) {
+                    eqHead = new Node(iterator.getData());
+                    eqTail = eqHead;
+                } else {
+                    eqTail.setNext(new Node(iterator.getData()));
+                    eqTail = eqTail.getNext();
+                }
+            }
+
+            iterator = iterator.getNext();
+        }
+
+        if(eqHead == null)
+            throw new IllegalArgumentException(String.format("Cannot partition list around x=%d because x is not present in list.", x));
+
+        if(ltTail == null)
+            this.head = eqHead;
+        else {
+            this.head = ltHead;
+            ltTail.setNext(eqHead);
+        }
+
+        eqTail.setNext(gtHead);
     }
 }
